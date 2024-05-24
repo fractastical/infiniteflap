@@ -3,8 +3,9 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     body {
-      font-family: 'Courier';
+      font-family: 'Press Start 2P', cursive;
       text-align: center;
       margin: 0;
       padding: 0;
@@ -12,7 +13,7 @@
     }
     canvas {
       border: 0;
-      background-color: #f1f1f1';
+      background-color: #f1f1f1;
       display: block;
     }
   </style>
@@ -27,7 +28,8 @@
     function startGame() {
         myGamePiece = new component(30, 30, "red", 10, 120);
         myGamePiece.gravity = 0.05;
-        myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+        myScore = new component("20px", "Press Start 2P", "black", window.innerWidth - 200, window.innerHeight - 40, "text");
+        myVersion = new component("20px", "Press Start 2P", "black", 10, window.innerHeight - 40, "text");
         myGameArea.start();
         gameStartTime = new Date().getTime(); // Record the game start time
     }
@@ -85,7 +87,7 @@
         this.update = function() {
             ctx = myGameArea.context;
             if (this.type == "text") {
-                ctx.font = this.width + " " + this.height;
+                ctx.font = this.height + " " + this.width;
                 ctx.fillStyle = color;
                 ctx.fillText(this.text, this.x, this.y);
             } else {
@@ -153,14 +155,11 @@
             maxGap = 200;
 
             if (elapsedTime <= 10) {
-                minGap *= 1.7;
-                maxGap *= 1.7;
+                minGap *= 1.5;
+                maxGap *= 1.5;
             } else if (elapsedTime <= 20) {
-                minGap *= 1.4;
-                maxGap *= 1.4;
-            } else if (elapsedTime <= 30) {
-                minGap *= 1.2;
-                maxGap *= 1.2;
+                minGap *= 1.25;
+                maxGap *= 1.25;
             }
 
             gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
@@ -174,6 +173,8 @@
         }
         myScore.text = "SCORE: " + myGameArea.frameNo;
         myScore.update();
+        myVersion.text = "v0.81";
+        myVersion.update();
         myGamePiece.newPos();
         myGamePiece.update();
     }
