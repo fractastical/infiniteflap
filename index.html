@@ -12,7 +12,7 @@
     }
     canvas {
       border: 0;
-      background-color: #f1f1f1;
+      background-color: #f1f1f1';
       display: block;
     }
   </style>
@@ -97,7 +97,14 @@
             this.gravitySpeed += this.gravity;
             this.x += this.speedX;
             this.y += this.speedY + this.gravitySpeed;
+            this.hitTop();
             this.hitBottom();
+        }
+        this.hitTop = function() {
+            if (this.y < 0) {
+                this.y = 0;
+                this.gravitySpeed = -this.gravitySpeed; // Reverse the speed to simulate a bounce
+            }
         }
         this.hitBottom = function() {
             var rockbottom = myGameArea.canvas.height - this.height;
@@ -146,11 +153,14 @@
             maxGap = 200;
 
             if (elapsedTime <= 10) {
-                minGap *= 1.5;
-                maxGap *= 1.5;
+                minGap *= 1.7;
+                maxGap *= 1.7;
             } else if (elapsedTime <= 20) {
-                minGap *= 1.25;
-                maxGap *= 1.25;
+                minGap *= 1.4;
+                maxGap *= 1.4;
+            } else if (elapsedTime <= 30) {
+                minGap *= 1.2;
+                maxGap *= 1.2;
             }
 
             gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
