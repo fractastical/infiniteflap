@@ -43,13 +43,21 @@
                 if (e.code == 'Space') {
                     accelerate(-0.2);
                 }
-            })
+            });
             window.addEventListener('keyup', function (e) {
                 if (e.code == 'Space') {
                     accelerate(0.05);
                 }
-            })
+            });
             window.addEventListener('resize', this.resize);
+            window.addEventListener('touchstart', function (e) {
+                accelerate(-0.2);
+                e.preventDefault();  // Prevent default touch behavior
+            });
+            window.addEventListener('touchend', function (e) {
+                accelerate(0.05);
+                e.preventDefault();  // Prevent default touch behavior
+            });
         },
         clear : function() {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -122,16 +130,16 @@
         }
         myGameArea.clear();
         myGameArea.frameNo += 1;
-        if (myGameArea.frameNo == 1 || everyinterval(150)) {
-            x = myGameArea.canvas.width;
+        if (myGameArea.frameNo == 1 || everyinterval(150)) {  // Adjusted interval for obstacle creation
+            x = myGameArea.canvas.width / 2; // Start obstacles closer to the middle
             minHeight = 20;
-            maxHeight = 200;
+            maxHeight = myGameArea.canvas.height - 200; // Ensure height leaves room for gap
             height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
             minGap = 50;
             maxGap = 200;
             gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
             myObstacles.push(new component(10, height, "green", x, 0));
-            myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+            myObstacles.push(new component(10, myGameArea.canvas.height - height - gap, "green", x, height + gap));
         }
         for (i = 0; i < myObstacles.length; i += 1) {
             myObstacles[i].x += -1;
