@@ -35,7 +35,7 @@
 
     function startGame() {
         myGamePiece = new component(30, 30, "red", 10, 120);
-        myGamePiece.gravity = 0.05;
+        myGamePiece.gravity = 0.12;
         myScore = new component("20px", "Press Start 2P", "black", window.innerWidth - 200, window.innerHeight - 40, "text");
         myVersion = new component("20px", "Press Start 2P", "black", 10, window.innerHeight - 40, "text");
         myGameArea.start();
@@ -181,7 +181,7 @@
         }
         myScore.text = "SCORE: " + myGameArea.frameNo;
         myScore.update();
-        myVersion.text = "v0.82";
+        myVersion.text = "v0.83";
         myVersion.update();
         myGamePiece.newPos();
         myGamePiece.update();
