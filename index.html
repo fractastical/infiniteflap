@@ -23,7 +23,15 @@
     var myGamePiece;
     var myObstacles = [];
     var myScore;
+    var myVersion;
     var gameStartTime;
+
+    const gapSettings = [
+        { time: 8, multiplier: 2.2 },
+        { time: 15, multiplier: 1.9 },
+        { time: 22, multiplier: 1.6 },
+        { time: 30, multiplier: 1.3 }
+    ];
 
     function startGame() {
         myGamePiece = new component(30, 30, "red", 10, 120);
@@ -154,12 +162,12 @@
             minGap = 50;
             maxGap = 200;
 
-            if (elapsedTime <= 10) {
-                minGap *= 1.5;
-                maxGap *= 1.5;
-            } else if (elapsedTime <= 20) {
-                minGap *= 1.25;
-                maxGap *= 1.25;
+            for (var i = 0; i < gapSettings.length; i++) {
+                if (elapsedTime <= gapSettings[i].time) {
+                    minGap *= gapSettings[i].multiplier;
+                    maxGap *= gapSettings[i].multiplier;
+                    break;
+                }
             }
 
             gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
@@ -173,7 +181,7 @@
         }
         myScore.text = "SCORE: " + myGameArea.frameNo;
         myScore.update();
-        myVersion.text = "v0.81";
+        myVersion.text = "v0.82";
         myVersion.update();
         myGamePiece.newPos();
         myGamePiece.update();
