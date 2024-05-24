@@ -6,17 +6,18 @@
     body {
       font-family: 'Courier';
       text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
     canvas {
-      border:1px solid #d3d3d3;
+      border: 0;
       background-color: #f1f1f1;
+      display: block;
     }
   </style>
 </head>
 <body onload="startGame()">
-  <p><button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">ACCELERATE</button></p>
-  <p>Use the ACCELERATE button or SPACE BAR to stay in the air</p>
-  <p>How long can you stay alive?</p>
   <script>
     var myGamePiece;
     var myObstacles = [];
@@ -32,8 +33,8 @@
     var myGameArea = {
         canvas : document.createElement("canvas"),
         start : function() {
-            this.canvas.width = 480;
-            this.canvas.height = 270;
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
             this.context = this.canvas.getContext("2d");
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.frameNo = 0;
@@ -48,9 +49,15 @@
                     accelerate(0.05);
                 }
             })
+            window.addEventListener('resize', this.resize);
         },
         clear : function() {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        },
+        resize: function() {
+            myGameArea.canvas.width = window.innerWidth;
+            myGameArea.canvas.height = window.innerHeight;
+            myGameArea.clear();
         }
     }
 
