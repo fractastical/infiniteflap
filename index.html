@@ -192,6 +192,7 @@
 
 
                   fetchLeaderboard();
+                  let score = myGameArea.frameNo;
 
                   const a = new URLSearchParams(window.location.href)
 
@@ -246,7 +247,7 @@
         }
         myScore.text = "SCORE: " + myGameArea.frameNo;
         myScore.update();
-        myVersion.text = "v0.843";
+        myVersion.text = "v0.844";
         myVersion.update();
         myGamePiece.newPos();
         myGamePiece.update();
